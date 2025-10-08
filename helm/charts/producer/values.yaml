@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  repository: choizeus/binance-kafka-producer
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+
+env:
+  kafkaBroker: "kafka-service:9092"
+  kafkaTopic: "trades"
+  coinSymbol: "btcusdt"

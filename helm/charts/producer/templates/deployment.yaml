@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-producer
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-producer
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-producer
+    spec:
+      containers:
+        - name: producer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: KAFKA_BROKER
+              value: {{ .Values.global.kafka.broker | default .Values.env.kafkaBroker | quote }}
+            - name: KAFKA_TOPIC
+              value: {{ .Values.global.kafka.topic | default .Values.env.kafkaTopic | quote }}
+            - name: COIN_SYMBOL
+              value: {{ .Values.global.coinSymbol | default .Values.env.coinSymbol | quote }}

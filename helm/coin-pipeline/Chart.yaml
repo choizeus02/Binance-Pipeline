@@ -1,0 +1,13 @@
+apiVersion: v2
+name: coin-pipeline
+description: A Helm chart for deploying a full coin pipeline
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: producer
+    repository: "file://../charts/producer"
+    version: "0.1.0"
+  - name: consumer
+    repository: "file://../charts/consumer" 
+    version: "0.1.0"

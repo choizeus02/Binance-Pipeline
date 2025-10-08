@@ -1,0 +1,24 @@
+# ✅ 이 파이프라인의 핵심 파라미터
+coinSymbol: "btcusdt"
+
+# ✅ producer 차트로 전달될 값들
+producer:
+  replicaCount: 1
+  image:
+    repository: your-registry/producer
+    tag: "1.0"
+
+# ✅ consumer 차트로 전달될 값들
+consumer:
+  replicaCount: 1
+  image:
+    repository: your-registry/consumer
+    tag: "1.0"
+
+# ✅ 모든 하위 차트가 공통으로 사용할 수 있는 값 (global)
+global:
+  kafka:
+    broker: "kafka-service.default.svc.cluster.local:9092"
+    topic: "trades"
+  storage: # consumer만 사용하겠지만, 공통 관리 가능
+    endpoint: "minio-service:9000"
