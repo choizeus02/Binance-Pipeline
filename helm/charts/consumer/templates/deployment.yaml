@@ -20,6 +20,33 @@ spec:
             - name: KAFKA_BROKER
               value: {{ .Values.global.kafka.broker | default .Values.env.kafkaBroker | quote }}
             - name: KAFKA_TOPIC
-              value: {{ .Values.global.kafka.topic | default .Values.env.kafkaTopic | quote }}
+              value: "trades-{{ .Values.global.coinSymbol | default .Values.env.coinSymbol }}"
             - name: COIN_SYMBOL
               value: {{ .Values.global.coinSymbol | default .Values.env.coinSymbol | quote }}
+            - name: KAFKA_GROUP_ID
+              value: {{ .Values.global.kafka.groupId | default .Values.env.kafkaGroupId | quote }}
+            - name: MINIO_ENDPOINT_URL
+              value: {{ .Values.global.storage.endpoint | default .Values.env.minioEndpointUrl | quote }}
+            - name: MINIO_ACCESS_KEY
+              value: {{ .Values.global.storage.accessKey | default .Values.env.minioAccessKey | quote }}
+            - name: MINIO_BUCKET_NAME
+              value: {{ .Values.global.storage.bucketName | default .Values.env.minioBucketName | quote }}
+          envFrom:
+            # 2. Secret으로부터 환경 변수 가져오기
+            - secretRef:
+                name: minio-secret # 2단계에서 만든 시크릿 이름
+      tolerations:
+      - key: "app"
+        operator: "Equal"
+        value: "cryptotrack"
+        effect: "NoSchedule"
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "app"
+                operator: "In"
+                values:
+                - "cryptotrack"

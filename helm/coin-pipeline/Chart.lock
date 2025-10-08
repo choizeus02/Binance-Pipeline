@@ -1,9 +1,9 @@
 dependencies:
 - name: producer
   repository: file://../charts/producer
-  version: 0.1.0
+  version: 0.3.0
 - name: consumer
   repository: file://../charts/consumer
-  version: 0.1.0
-digest: sha256:99a4109edd155f25e1c2fcf4267975961ff4e7f33b871543774e9a5d534e72d0
-generated: "2025-10-07T01:19:30.403668+09:00"
+  version: 0.3.0
+digest: sha256:06ae72bb525ea123135870b3ef4ab94e537703d5f260495a440e7806ed13db73
+generated: "2025-10-08T21:43:25.204232+09:00"

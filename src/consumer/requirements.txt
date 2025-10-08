@@ -1,3 +1,6 @@
+boto3
+botocore
 confluent-kafka
-websockets
+pandas
+pyarrow
 python-dotenv
